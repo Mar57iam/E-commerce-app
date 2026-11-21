@@ -1,0 +1,82 @@
+<section class="mx-auto w-full max-w-[1240px] px-4 py-14 sm:px-6 lg:py-20" aria-labelledby="featured-products-title">
+  <div class="mb-8 flex flex-wrap items-end justify-between gap-5 sm:mb-10">
+    <app-section-heading
+      headingId="featured-products-title"
+      prefix="Featured"
+      highlightedText="Products"
+      eyebrow="Fresh picks for you"
+    />
+
+    <a
+      class="group inline-flex items-center gap-2 text-sm font-bold text-primary no-underline transition hover:text-green-800"
+      [routerLink]="shopLink"
+    >
+      Shop all products
+      <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  @if (productsResponse(); as response) {
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      @for (product of response.data; track product._id) {
+        <article class="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+          <a
+            class="flex h-full flex-col cursor-pointer text-inherit no-underline"
+            [routerLink]="productLink(product._id, product.slug)"
+            [attr.aria-label]="'View ' + product.title + ' details'"
+          >
+            <div class="relative h-[280px] overflow-hidden bg-white sm:h-[300px]">
+              <img
+                class="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-105"
+                [src]="product.imageCover"
+                [alt]="product.title"
+              />
+
+              @if (product.priceAfterDiscount) {
+                <span class="absolute left-3 top-3 rounded bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+                  Sale
+                </span>
+              }
+
+              <div class="absolute right-3 top-3 flex flex-col gap-2" aria-hidden="true">
+                <span class="grid size-10 place-items-center rounded-full border border-gray-100 bg-white text-secondary shadow-sm">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+                <span class="grid size-10 place-items-center rounded-full border border-gray-100 bg-white text-secondary shadow-sm">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                </span>
+                <span class="grid size-10 place-items-center rounded-full border border-gray-100 bg-white text-secondary shadow-sm">
+                  <i class="fa-regular fa-eye"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="flex flex-1 flex-col border-t border-gray-100 px-4 py-4">
+              <p class="mb-1 text-xs font-medium text-gray-500">{{ product.category.name }}</p>
+              <p class="block truncate text-lg font-bold text-secondary transition-colors group-hover:text-primary">
+                {{ product.title }}
+              </p>
+
+              <div class="mt-2 flex items-center gap-1.5 text-xs">
+                <i class="fa-solid fa-star text-amber-400" aria-hidden="true"></i>
+                <span class="font-bold text-secondary">{{ product.ratingsAverage }}</span>
+                <span class="text-gray-400">({{ product.ratingsQuantity }} reviews)</span>
+              </div>
+
+              <div class="mt-auto flex items-center gap-3 pt-3">
+                @if (product.priceAfterDiscount) {
+                  <span class="text-lg font-extrabold text-secondary">
+                    {{ product.priceAfterDiscount | currency:'EGP' }}
+                  </span>
+                  <span class="text-sm text-gray-400 line-through">{{ product.price | currency:'EGP' }}</span>
+                } @else {
+                  <span class="text-lg font-extrabold text-secondary">{{ product.price | currency:'EGP' }}</span>
+                }
+              </div>
+            </div>
+          </a>
+        </article>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,143 @@
+@if (errorMessage()) {
+  <section class="mx-auto max-w-[1240px] px-4 py-16 text-center" role="alert">
+    <p class="text-lg font-semibold text-danger">{{ errorMessage() }}</p>
+    <a class="mt-4 inline-flex text-sm font-bold text-primary no-underline hover:underline" routerLink="/home">
+      Back to home
+    </a>
+  </section>
+} @else if (product(); as product) {
+  <main class="min-h-screen bg-[#f7f9f6]">
+    <div class="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:py-12">
+      <nav class="mb-7 flex flex-wrap items-center gap-2 text-sm text-gray-500" aria-label="Breadcrumb">
+        <a class="no-underline transition hover:text-primary" routerLink="/home">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px]" aria-hidden="true"></i>
+        <a class="no-underline transition hover:text-primary" routerLink="/shop">Shop</a>
+        <i class="fa-solid fa-chevron-right text-[10px]" aria-hidden="true"></i>
+        <span class="max-w-[220px] truncate font-medium text-secondary">{{ product.title }}</span>
+      </nav>
+
+      <section class="grid gap-8 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm sm:p-7 lg:grid-cols-2 lg:gap-12 lg:p-10">
+        <div>
+          <div class="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-2xl bg-[#f5f7f3] p-6 sm:min-h-[490px]">
+            <img
+              class="max-h-[440px] w-full object-contain transition duration-500"
+              [src]="mainImage()"
+              [alt]="product.title"
+            />
+            @if (product.priceAfterDiscount) {
+              <span class="absolute left-4 top-4 rounded-full bg-primary px-4 py-2 text-xs font-extrabold uppercase tracking-wide text-white">
+                Special offer
+              </span>
+            }
+            <span class="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-white text-danger shadow-sm" aria-hidden="true">
+              <i class="fa-regular fa-heart"></i>
+            </span>
+          </div>
+
+          @if (product.images.length > 1) {
+            <div class="mt-4 flex gap-3 overflow-x-auto pb-2" aria-label="Product images">
+              @for (image of product.images; track image) {
+                <button
+                  class="grid size-[76px] shrink-0 place-items-center overflow-hidden rounded-xl border bg-white p-2 transition hover:border-primary focus-visible:outline-2 focus-visible:outline-primary"
+                  [class.border-primary]="mainImage() === image"
+                  [class.border-gray-200]="mainImage() !== image"
+                  type="button"
+                  [attr.aria-label]="'Show image of ' + product.title"
+                  [attr.aria-pressed]="mainImage() === image"
+                  (click)="selectedImage.set(image)"
+                >
+                  <img class="h-full w-full object-contain" [src]="image" [alt]="product.title" />
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="flex flex-col py-2 lg:py-4">
+          <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <span class="rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-primary">
+              {{ product.category.name }}
+            </span>
+            <span
+              class="inline-flex items-center gap-2 text-sm font-semibold"
+              [class.text-primary]="product.quantity > 0"
+              [class.text-danger]="product.quantity <= 0"
+            >
+              <span class="size-2 rounded-full" [class.bg-primary]="product.quantity > 0" [class.bg-danger]="product.quantity <= 0"></span>
+              {{ product.quantity > 0 ? 'In stock' : 'Out of stock' }}
+            </span>
+          </div>
+
+          <p class="mb-2 text-sm font-medium text-gray-500">{{ product.brand.name }}</p>
+          <h1 class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-secondary sm:text-4xl">
+            {{ product.title }}
+          </h1>
+
+          <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 rounded-lg bg-amber-50 px-3 py-2 text-sm font-bold text-secondary">
+              <i class="fa-solid fa-star text-amber-400" aria-hidden="true"></i>
+              {{ product.ratingsAverage }}
+            </span>
+            <span class="text-sm text-gray-500">{{ product.ratingsQuantity }} customer reviews</span>
+          </div>
+
+          <div class="mb-6 flex flex-wrap items-baseline gap-3 border-b border-gray-100 pb-6">
+            @if (product.priceAfterDiscount) {
+              <span class="text-3xl font-extrabold text-secondary">
+                {{ product.priceAfterDiscount | currency:'EGP':'code' }}
+              </span>
+              <span class="text-lg text-gray-400 line-through">
+                {{ product.price | currency:'EGP':'code' }}
+              </span>
+              <span class="rounded-md bg-red-50 px-2 py-1 text-xs font-bold text-danger">
+                Save {{ product.price - product.priceAfterDiscount | currency:'EGP':'code' }}
+              </span>
+            } @else {
+              <span class="text-3xl font-extrabold text-secondary">
+                {{ product.price | currency:'EGP':'code' }}
+              </span>
+            }
+          </div>
+
+          <p class="mb-7 whitespace-pre-line text-[15px] leading-7 text-gray-600">
+            {{ product.description }}
+          </p>
+
+          <div class="mb-7 grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-gray-50 p-4">
+              <p class="mb-1 text-xs font-medium uppercase tracking-wide text-gray-500">Brand</p>
+              <p class="m-0 truncate font-bold text-secondary">{{ product.brand.name }}</p>
+            </div>
+            <div class="rounded-xl bg-gray-50 p-4">
+              <p class="mb-1 text-xs font-medium uppercase tracking-wide text-gray-500">Availability</p>
+              <p class="m-0 font-bold text-secondary">{{ product.quantity }} items</p>
+            </div>
+          </div>
+
+          <div class="mt-auto flex flex-col gap-3 sm:flex-row">
+            <button
+              class="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-white transition hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
+              type="button"
+              [disabled]="product.quantity <= 0"
+            >
+              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+              Add to cart
+            </button>
+            <button
+              class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3 font-bold text-secondary transition hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              type="button"
+            >
+              <i class="fa-regular fa-heart" aria-hidden="true"></i>
+              Wishlist
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="product-description-title">
+        <h2 id="product-description-title" class="mb-4 text-xl font-extrabold text-secondary">Product description</h2>
+        <p class="m-0 whitespace-pre-line leading-7 text-gray-600">{{ product.description }}</p>
+      </section>
+    </div>
+  </main>
+}

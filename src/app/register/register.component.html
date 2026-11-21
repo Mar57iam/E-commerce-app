@@ -1,0 +1,182 @@
+<main class="auth-page auth-page--register">
+  <div class="auth-card">
+    <section class="auth-form-panel" aria-labelledby="register-title">
+      <a class="auth-brand" routerLink="/home" aria-label="FreshCart home">
+        <img src="/assets/fresh-logo.svg" alt="FreshCart" />
+      </a>
+
+      <div class="auth-heading">
+        <p class="auth-eyebrow">JOIN THE FRESHCART FAMILY</p>
+        <h1 id="register-title">Let's get you started</h1>
+        <p>Create an account for a little more goodness every day.</p>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="auth-form">
+        <div class="auth-field">
+          <label for="register-name">Full name</label>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="registerForm.controls.name.invalid && registerForm.controls.name.touched"
+          >
+            <i class="fa-regular fa-user" aria-hidden="true"></i>
+            <input
+              formControlName="name"
+              id="register-name"
+              name="name"
+              type="text"
+              placeholder="Your name"
+              autocomplete="name"
+              [attr.aria-invalid]="registerForm.controls.name.invalid && registerForm.controls.name.touched"
+              [attr.aria-describedby]="registerForm.controls.name.invalid && registerForm.controls.name.touched ? 'register-name-error' : null"
+            />
+          </div>
+          @if (registerForm.controls.name.touched && registerForm.controls.name.hasError('required')) {
+            <span class="auth-field-error" id="register-name-error">Please enter your name.</span>
+          } @else if (registerForm.controls.name.touched && registerForm.controls.name.hasError('minlength')) {
+            <span class="auth-field-error" id="register-name-error">Your name must be at least 3 characters.</span>
+          }
+        </div>
+
+        <div class="auth-field">
+          <label for="register-email">Email address</label>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="registerForm.controls.email.invalid && registerForm.controls.email.touched"
+          >
+            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+            <input
+              formControlName="email"
+              id="register-email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              [attr.aria-invalid]="registerForm.controls.email.invalid && registerForm.controls.email.touched"
+              [attr.aria-describedby]="registerForm.controls.email.invalid && registerForm.controls.email.touched ? 'register-email-error' : null"
+            />
+          </div>
+          @if (registerForm.controls.email.touched && registerForm.controls.email.hasError('required')) {
+            <span class="auth-field-error" id="register-email-error">Please enter your email address.</span>
+          } @else if (registerForm.controls.email.touched && registerForm.controls.email.hasError('email')) {
+            <span class="auth-field-error" id="register-email-error">Enter a valid email address.</span>
+          }
+        </div>
+
+        <div class="auth-field">
+          <label for="register-password">Password</label>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="registerForm.controls.password.invalid && registerForm.controls.password.touched"
+          >
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              formControlName="password"
+              id="register-password"
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              [attr.aria-invalid]="registerForm.controls.password.invalid && registerForm.controls.password.touched"
+              [attr.aria-describedby]="registerForm.controls.password.invalid && registerForm.controls.password.touched ? 'register-password-error' : null"
+            />
+          </div>
+          @if (registerForm.controls.password.touched && registerForm.controls.password.hasError('required')) {
+            <span class="auth-field-error" id="register-password-error">Please create a password.</span>
+          } @else if (registerForm.controls.password.touched && registerForm.controls.password.hasError('pattern')) {
+            <span class="auth-field-error" id="register-password-error">
+              Use 8+ characters with uppercase, lowercase, a number, and a special character.
+            </span>
+          }
+        </div>
+
+        <div class="auth-field">
+          <label for="register-repassword">Confirm password</label>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="(registerForm.controls.rePassword.invalid || registerForm.hasError('passwordMismatch')) && registerForm.controls.rePassword.touched"
+          >
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              formControlName="rePassword"
+              id="register-repassword"
+              name="rePassword"
+              type="password"
+              placeholder="Enter your password again"
+              autocomplete="new-password"
+              [attr.aria-invalid]="(registerForm.controls.rePassword.invalid || registerForm.hasError('passwordMismatch')) && registerForm.controls.rePassword.touched"
+              [attr.aria-describedby]="(registerForm.controls.rePassword.invalid || registerForm.hasError('passwordMismatch')) && registerForm.controls.rePassword.touched ? 'register-repassword-error' : null"
+            />
+          </div>
+          @if (registerForm.controls.rePassword.touched && registerForm.controls.rePassword.hasError('required')) {
+            <span class="auth-field-error" id="register-repassword-error">Please confirm your password.</span>
+          } @else if (registerForm.controls.rePassword.touched && registerForm.hasError('passwordMismatch')) {
+            <span class="auth-field-error" id="register-repassword-error">Passwords do not match.</span>
+          }
+        </div>
+
+        <div class="auth-field">
+          <label for="register-phone">Phone number</label>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="registerForm.controls.phone.invalid && registerForm.controls.phone.touched"
+          >
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <input
+              formControlName="phone"
+              id="register-phone"
+              name="phone"
+              type="tel"
+              inputmode="tel"
+              placeholder="01XXXXXXXXX"
+              autocomplete="tel"
+              [attr.aria-invalid]="registerForm.controls.phone.invalid && registerForm.controls.phone.touched"
+              [attr.aria-describedby]="registerForm.controls.phone.invalid && registerForm.controls.phone.touched ? 'register-phone-error' : null"
+            />
+          </div>
+          @if (registerForm.controls.phone.touched && registerForm.controls.phone.hasError('required')) {
+            <span class="auth-field-error" id="register-phone-error">Please enter your phone number.</span>
+          } @else if (registerForm.controls.phone.touched && registerForm.controls.phone.hasError('pattern')) {
+            <span class="auth-field-error" id="register-phone-error">Enter a valid Egyptian mobile number.</span>
+          }
+        </div>
+
+
+        <button class="auth-submit" type="submit">
+          Create account
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </p>
+
+      <p class="auth-secure-note">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        Your details are always safe with us.
+      </p>
+    </section>
+
+    <aside class="auth-visual auth-visual--register" aria-label="FreshCart shopping">
+      <img class="auth-visual__image" src="/assets/istockphoto-2186872037-612x612.jpg" alt="" />
+      <div class="auth-visual__overlay"></div>
+      <div class="auth-visual__content">
+        <span class="auth-visual__badge">
+          <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          YOUR NEW FAVORITE WAY TO SHOP
+        </span>
+        <h2>More fresh.<br />More you.</h2>
+        <p>Make room for the good stuff with quality picks for every day.</p>
+        <div class="auth-visual__foot">
+          <span class="auth-visual__foot-icon">
+            <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+          </span>
+          <span><strong>All your favorites</strong><br />Just a few clicks away</span>
+        </div>
+      </div>
+      <span class="auth-visual__sparkle auth-visual__sparkle--one" aria-hidden="true">✦</span>
+      <span class="auth-visual__sparkle auth-visual__sparkle--two" aria-hidden="true">✧</span>
+    </aside>
+  </div>
+</main>

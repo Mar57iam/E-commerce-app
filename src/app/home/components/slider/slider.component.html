@@ -1,0 +1,43 @@
+<section class="hero" aria-label="FreshCart highlights">
+  <div #sliderElement class="swiper hero__swiper">
+    <div class="swiper-wrapper">
+      @for (slide of slides; track slide.title) {
+        <article class="swiper-slide hero__slide">
+          <img class="hero__image" [src]="slide.image" alt="" aria-hidden="true" />
+          <div class="hero__shade" aria-hidden="true"></div>
+
+          <div class="hero__content">
+            <p class="hero__eyebrow">
+              <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+              {{ slide.eyebrow }}
+            </p>
+            <h1 class="hero__title">{{ slide.title }}</h1>
+            <p class="hero__description">{{ slide.description }}</p>
+            <a class="hero__cta" routerLink="/shop">
+              {{ slide.action }}
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+
+    <button
+      #previousButton
+      class="hero__arrow hero__arrow--previous"
+      type="button"
+      aria-label="Previous slide"
+    >
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <button
+      #nextButton
+      class="hero__arrow hero__arrow--next"
+      type="button"
+      aria-label="Next slide"
+    >
+      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </button>
+    <div #paginationElement class="hero__pagination"></div>
+  </div>
+</section>

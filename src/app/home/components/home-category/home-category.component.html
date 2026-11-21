@@ -1,0 +1,38 @@
+@if (categoriesResponse(); as response) {
+  <section class="mx-auto w-full max-w-[1240px] px-4 py-12 sm:px-6 lg:py-16" aria-labelledby="home-categories-title">
+    <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
+      <app-section-heading
+        headingId="home-categories-title"
+        prefix="Shop by"
+        highlightedText="Category"
+        eyebrow="Find your favorites"
+      />
+      <a
+        class="text-sm font-bold text-primary no-underline transition hover:text-green-800"
+        routerLink="/categories"
+      >
+        View all categories
+        <i class="fa-solid fa-arrow-right ml-2 text-xs" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      @for (category of response.data; track category._id) {
+        <article class="group overflow-hidden rounded-2xl border border-gray-100 bg-white text-center text-secondary shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+          <div class="aspect-square overflow-hidden bg-gray-50 p-4">
+            <img
+              class="h-full w-full object-contain transition duration-500 group-hover:scale-105"
+              [src]="category.image"
+              [alt]="category.name"
+            />
+          </div>
+          <div class="px-3 py-4">
+            <h3 class="m-0 truncate text-sm font-bold transition-colors group-hover:text-primary sm:text-base">
+              {{ category.name }}
+            </h3>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+}

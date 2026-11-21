@@ -1,0 +1,64 @@
+<header class="relative z-20 bg-white text-secondary shadow-[0_8px_28px_rgba(16,24,40,0.06)]">
+  <div class="flex min-h-9 items-center justify-center gap-2 bg-secondary px-4 py-1.5 text-center text-xs tracking-wide text-white">
+    <i class="fa-solid fa-leaf text-green-300" aria-hidden="true"></i>
+    <p class="m-0">
+      Fresh picks, happy days.
+      <strong class="font-semibold text-green-200">Goodness delivered to your door.</strong>
+    </p>
+  </div>
+
+  <div class="mx-auto flex min-h-[84px] w-full max-w-[1240px] items-center justify-between gap-5 px-6 max-md:min-h-[72px] max-md:px-4">
+    <a class="inline-flex shrink-0 items-center text-secondary no-underline" routerLink="/home" (click)="closeMenu()">
+      <img class="h-auto w-[160px] max-md:w-[140px]" src="/assets/fresh-logo.svg" alt="FreshCart" />
+    </a>
+
+    <nav class="hidden h-full items-center gap-7 md:flex" aria-label="Main navigation">
+      <a class="py-3 text-sm font-semibold text-gray-500 no-underline transition-colors hover:text-primary" routerLink="/home" routerLinkActive="text-primary" ariaCurrentWhenActive="page">Home</a>
+      <a class="py-3 text-sm font-semibold text-gray-500 no-underline transition-colors hover:text-primary" routerLink="/shop" routerLinkActive="text-primary" ariaCurrentWhenActive="page">Shop</a>
+      <a class="py-3 text-sm font-semibold text-gray-500 no-underline transition-colors hover:text-primary" routerLink="/categories" routerLinkActive="text-primary" ariaCurrentWhenActive="page">Categories</a>
+      <a class="py-3 text-sm font-semibold text-gray-500 no-underline transition-colors hover:text-primary" routerLink="/brands" routerLinkActive="text-primary" ariaCurrentWhenActive="page">Brands</a>
+    </nav>
+
+    <div class="hidden items-center gap-5 md:flex">
+      <a class="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-600 no-underline transition-colors hover:text-primary" routerLink="/wishlist" routerLinkActive="text-primary" ariaCurrentWhenActive="page" aria-label="Wishlist">
+        <i class="fa-regular fa-heart" aria-hidden="true"></i>
+        <span>Wishlist</span>
+      </a>
+      <a class="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-600 no-underline transition-colors hover:text-primary" routerLink="/cart" routerLinkActive="text-primary" ariaCurrentWhenActive="page" aria-label="Shopping cart">
+        <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+        <span>Cart</span>
+      </a>
+      <a class="inline-flex min-h-10.5 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-4 text-[13px] font-bold text-white no-underline transition hover:-translate-y-px hover:bg-green-700 hover:shadow-md" routerLink="/login" routerLinkActive="bg-green-700 shadow-md" ariaCurrentWhenActive="page">
+        <i class="fa-solid fa-user" aria-hidden="true"></i>
+        <span>Sign in</span>
+      </a>
+    </div>
+
+    <button
+      class="grid size-10.5 place-items-center rounded-xl border border-gray-200 bg-white text-lg text-secondary transition-colors hover:border-primary hover:text-primary md:hidden"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen"
+      aria-controls="mobile-navigation"
+      [attr.aria-label]="isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'"
+    >
+      @if (isMenuOpen) {
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      } @else {
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      }
+    </button>
+  </div>
+
+  @if (isMenuOpen) {
+    <nav id="mobile-navigation" class="grid gap-1 border-t border-gray-100 px-4 pb-5 pt-2 md:hidden" aria-label="Mobile navigation">
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/home" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Home</a>
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/shop" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Shop</a>
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/categories" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Categories</a>
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/brands" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Brands</a>
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/wishlist" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Wishlist</a>
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/cart" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Cart</a>
+      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/login" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Sign in</a>
+    </nav>
+  }
+</header>

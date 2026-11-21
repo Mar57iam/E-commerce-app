@@ -1,0 +1,104 @@
+<main class="auth-page auth-page--login">
+  <div class="auth-card">
+    <section class="auth-form-panel" aria-labelledby="login-title">
+      <a class="auth-brand" routerLink="/home" aria-label="FreshCart home">
+        <img src="/assets/fresh-logo.svg" alt="FreshCart" />
+      </a>
+
+      <div class="auth-heading">
+        <p class="auth-eyebrow">WELCOME BACK</p>
+        <h1 id="login-title">Good to see you again</h1>
+        <p>Sign in to pick up where you left off.</p>
+      </div>
+
+      <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <div class="auth-field">
+          <label for="login-email">Email address</label>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="loginForm.controls.email.invalid && loginForm.controls.email.touched"
+          >
+            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+            <input
+              id="login-email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              formControlName="email"
+              [attr.aria-invalid]="loginForm.controls.email.invalid && loginForm.controls.email.touched"
+              [attr.aria-describedby]="loginForm.controls.email.invalid && loginForm.controls.email.touched ? 'login-email-error' : null"
+            />
+          </div>
+          @if (loginForm.controls.email.touched && loginForm.controls.email.hasError('required')) {
+            <span class="auth-field-error" id="login-email-error">Please enter your email address.</span>
+          } @else if (loginForm.controls.email.touched && loginForm.controls.email.hasError('email')) {
+            <span class="auth-field-error" id="login-email-error">Enter a valid email address.</span>
+          }
+        </div>
+
+        <div class="auth-field">
+          <div class="auth-label-row">
+            <label for="login-password">Password</label>
+            <a routerLink="/forgetpassword">Forgot password?</a>
+          </div>
+          <div
+            class="auth-input-wrap"
+            [class.auth-input-wrap--invalid]="loginForm.controls.password.invalid && loginForm.controls.password.touched"
+          >
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              id="login-password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              formControlName="password"
+              [attr.aria-invalid]="loginForm.controls.password.invalid && loginForm.controls.password.touched"
+              [attr.aria-describedby]="loginForm.controls.password.invalid && loginForm.controls.password.touched ? 'login-password-error' : null"
+            />
+          </div>
+          @if (loginForm.controls.password.touched && loginForm.controls.password.hasError('required')) {
+            <span class="auth-field-error" id="login-password-error">Please enter your password.</span>
+          }
+        </div>
+
+        <button class="auth-submit" type="submit">
+          Sign in
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        New to FreshCart?
+        <a routerLink="/register">Create an account</a>
+      </p>
+
+      <p class="auth-secure-note">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        Your details are always safe with us.
+      </p>
+    </section>
+
+    <aside class="auth-visual" aria-label="FreshCart shopping">
+      <img class="auth-visual__image" src="/assets/young-woman-shopping.webp" alt="" />
+      <div class="auth-visual__overlay"></div>
+      <div class="auth-visual__content">
+        <span class="auth-visual__badge">
+          <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+          A LITTLE MORE GOODNESS
+        </span>
+        <h2>Fresh picks.<br />Happy days.</h2>
+        <p>Your favorite groceries, carefully picked and delivered with love.</p>
+        <div class="auth-visual__foot">
+          <span class="auth-visual__foot-icon">
+            <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+          </span>
+          <span><strong>Goodness delivered</strong><br />Straight to your door</span>
+        </div>
+      </div>
+      <span class="auth-visual__sparkle auth-visual__sparkle--one" aria-hidden="true">✦</span>
+      <span class="auth-visual__sparkle auth-visual__sparkle--two" aria-hidden="true">✧</span>
+    </aside>
+  </div>
+</main>

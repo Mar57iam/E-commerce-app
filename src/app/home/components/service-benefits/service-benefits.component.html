@@ -1,0 +1,15 @@
+<section class="service-benefits" aria-label="Shopping benefits">
+  <ul class="service-benefits__list">
+    @for (benefit of benefits; track benefit.title) {
+      <li class="service-benefits__card">
+        <span [class]="'service-benefits__icon service-benefits__icon--' + benefit.color">
+          <i class="fa-solid" [class]="benefit.icon" aria-hidden="true"></i>
+        </span>
+        <span class="service-benefits__copy">
+          <strong class="service-benefits__title">{{ benefit.title }}</strong>
+          <span class="service-benefits__description">{{ benefit.description }}</span>
+        </span>
+      </li>
+    }
+  </ul>
+</section>

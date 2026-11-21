@@ -1,0 +1,129 @@
+:host {
+  display: block;
+}
+
+.service-benefits {
+  width: min(100% - 2rem, 1240px);
+  margin: 1.5rem auto 0;
+}
+
+.service-benefits__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-benefits__card {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #edf1ef;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(16 24 40 / 7%);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.service-benefits__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgb(16 24 40 / 10%);
+}
+
+.service-benefits__icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.35rem;
+}
+
+.service-benefits__icon--blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.service-benefits__icon--green {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.service-benefits__icon--orange {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.service-benefits__icon--purple {
+  background: #faf5ff;
+  color: #9333ea;
+}
+
+.service-benefits__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.service-benefits__title {
+  color: #101828;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.service-benefits__description {
+  color: #7b8491;
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .service-benefits__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  .service-benefits {
+    width: min(100% - 1.25rem, 1240px);
+    margin-top: 1rem;
+  }
+
+  .service-benefits__list {
+    gap: 0.65rem;
+  }
+
+  .service-benefits__card {
+    gap: 0.65rem;
+    padding: 0.85rem;
+    border-radius: 16px;
+  }
+
+  .service-benefits__icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    font-size: 1rem;
+  }
+
+  .service-benefits__title {
+    font-size: 0.85rem;
+  }
+
+  .service-benefits__description {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .service-benefits__list {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,240 @@
+:host {
+  display: block;
+}
+
+.hero {
+  width: min(100% - 2rem, 1240px);
+  margin: 1.5rem auto 0;
+}
+
+.hero__swiper {
+  position: relative;
+  overflow: hidden;
+  height: clamp(360px, 42vw, 520px);
+  border-radius: 28px;
+  background: #14532d;
+  isolation: isolate;
+}
+
+.hero__slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: clamp(2rem, 7vw, 6.5rem);
+  color: #fff;
+}
+
+.hero__image,
+.hero__shade {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__image {
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+.hero__shade {
+  background: linear-gradient(90deg, rgb(5 42 23 / 88%) 0%, rgb(5 42 23 / 65%) 44%, rgb(5 42 23 / 8%) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 530px);
+  padding-bottom: 1rem;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.25rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 14%);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hero__eyebrow i {
+  color: #bbf7d0;
+}
+
+.hero__title {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.hero__description {
+  max-width: 38ch;
+  margin: 1.1rem 0 1.75rem;
+  color: rgb(255 255 255 / 88%);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 52px;
+  padding: 0.85rem 1.35rem;
+  border-radius: 14px;
+  background: #fff;
+  color: #15803d;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.hero__cta:hover {
+  transform: translateY(-2px);
+  background: #f0fdf4;
+}
+
+.hero__arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 92%);
+  color: #15803d;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.hero__arrow:hover {
+  transform: translateY(-50%) scale(1.06);
+  background: #fff;
+}
+
+.hero__arrow--previous {
+  left: 1.25rem;
+}
+
+.hero__arrow--next {
+  right: 1.25rem;
+}
+
+.hero__pagination {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.4rem !important;
+  left: 50% !important;
+  display: flex;
+  width: auto !important;
+  align-items: center;
+  gap: 0.25rem;
+  transform: translateX(-50%);
+}
+
+.hero__pagination ::ng-deep .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  margin: 0 !important;
+  background: #fff;
+  opacity: 0.55;
+  transition: width 180ms ease, opacity 180ms ease;
+}
+
+.hero__pagination ::ng-deep .swiper-pagination-bullet-active {
+  width: 24px;
+  border-radius: 999px;
+  background: #fff;
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    width: min(100% - 1.25rem, 1240px);
+    margin-top: 0.75rem;
+  }
+
+  .hero__swiper {
+    height: 440px;
+    border-radius: 22px;
+  }
+
+  .hero__slide {
+    align-items: flex-end;
+    padding: 2rem 1.4rem 4.5rem;
+  }
+
+  .hero__image {
+    object-position: 58% center;
+  }
+
+  .hero__shade {
+    background: linear-gradient(0deg, rgb(5 42 23 / 91%) 0%, rgb(5 42 23 / 60%) 56%, rgb(5 42 23 / 8%) 100%);
+  }
+
+  .hero__content {
+    padding-bottom: 0;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 0.9rem;
+    font-size: 0.75rem;
+  }
+
+  .hero__title {
+    font-size: clamp(2.35rem, 11vw, 3.2rem);
+  }
+
+  .hero__description {
+    margin: 0.85rem 0 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .hero__arrow {
+    top: 1.4rem;
+    width: 38px;
+    height: 38px;
+    transform: none;
+  }
+
+  .hero__arrow:hover {
+    transform: scale(1.06);
+  }
+
+  .hero__arrow--previous {
+    right: 4.25rem;
+    left: auto;
+  }
+
+  .hero__arrow--next {
+    right: 1.4rem;
+  }
+
+  .hero__pagination {
+    bottom: 1.5rem !important;
+    left: 1.4rem !important;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta,
+  .hero__arrow,
+  .hero__pagination ::ng-deep .swiper-pagination-bullet {
+    transition: none;
+  }
+}
