@@ -16,4 +16,16 @@ export class AuthService {
    signIn(data: object):Observable<any> {
     return this.httpClient.post(environment.baseUrl + '/api/v1/auth/signin', data);
   }
+   forgetPassword(data: object):Observable<any> {
+    return this.httpClient.post(environment.baseUrl + '/api/v1/auth/forgotPasswords', data);
+  }
+   verifyCode(data: object):Observable<any> {
+    return this.httpClient.post(environment.baseUrl + '/api/v1/auth/verifyResetCode', data);
+  }
+  resetPassword(data: { email: string; newPassword: string }): Observable<{ token: string }> {
+    return this.httpClient.put<{ token: string }>(
+      environment.baseUrl + '/api/v1/auth/resetPassword',
+      data,
+    );
+  }
 }
