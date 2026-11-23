@@ -1,1 +1,36 @@
-<p>shop works!</p>
+<section class="mx-auto w-full max-w-[1240px] px-4 py-14 sm:px-6 lg:py-20" aria-labelledby="shop-products-title">
+  <div class="mb-8">
+    <app-section-heading
+      headingId="shop-products-title"
+      prefix="Shop"
+      highlightedText="Products"
+      eyebrow="Browse our complete collection"
+    />
+  </div>
+
+  @if (productsState(); as state) {
+    @if (state.status === 'loading') {
+      <div class="flex min-h-64 items-center justify-center" role="status" aria-live="polite">
+        <i class="fa-solid fa-spinner animate-spin text-3xl text-primary" aria-hidden="true"></i>
+        <span class="sr-only">Loading products...</span>
+      </div>
+    } @else if (state.status === 'error') {
+      <div class="rounded-xl border border-red-200 bg-red-50 px-6 py-10 text-center" role="alert">
+        <p class="m-0 font-semibold text-red-700">We couldn't load the products. Please try again later.</p>
+      </div>
+    } @else if (state.products.length === 0) {
+      <div class="rounded-xl border border-gray-200 bg-white px-6 py-10 text-center">
+        <p class="m-0 font-semibold text-secondary">No products are available right now.</p>
+      </div>
+    } @else {
+      <p class="mb-5 text-sm text-gray-500" aria-live="polite">
+        {{ state.products.length }} products
+      </p>
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        @for (product of state.products; track product._id) {
+          <app-product-card [product]="product" />
+        }
+      </div>
+    }
+  }
+</section>

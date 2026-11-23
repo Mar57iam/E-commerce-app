@@ -1,0 +1,74 @@
+<article class="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+  <a
+    class="flex h-full flex-col cursor-pointer text-inherit no-underline"
+    [routerLink]="productLink(product()._id, product().slug)"
+    [attr.aria-label]="'View ' + product().title + ' details'"
+  >
+    <div class="relative h-[280px] overflow-hidden bg-white sm:h-[300px]">
+      <img
+        class="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-105"
+        [src]="product().imageCover"
+        [alt]="product().title"
+      />
+
+      @if (product().priceAfterDiscount) {
+        <span class="absolute left-3 top-3 rounded bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+          Sale
+        </span>
+      }
+
+      <div class="absolute right-3 top-3 flex flex-col gap-2" aria-hidden="true">
+        <span
+          class="grid size-10 place-items-center rounded-full border border-gray-100 bg-white text-secondary shadow-sm"
+          (click)="$event.preventDefault(); $event.stopPropagation()"
+        >
+          <i class="fa-regular fa-heart"></i>
+        </span>
+        <span class="grid size-10 place-items-center rounded-full border border-gray-100 bg-white text-secondary shadow-sm">
+          <i class="fa-regular fa-eye"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="flex flex-1 flex-col border-t border-gray-100 px-4 py-4">
+      <p class="mb-1 text-xs font-medium text-gray-500">{{ product().category.name }}</p>
+      <p class="block truncate text-lg font-bold text-secondary transition-colors group-hover:text-primary">
+        {{ product().title }}
+      </p>
+
+      <div class="mt-2 flex items-center gap-1.5 text-xs">
+        <i class="fa-solid fa-star text-amber-400" aria-hidden="true"></i>
+        <span class="font-bold text-secondary">{{ product().ratingsAverage }}</span>
+        <span class="text-gray-400">({{ product().ratingsQuantity }} reviews)</span>
+      </div>
+
+      <div class="mt-auto flex items-center gap-3 pt-3">
+        @if (product().priceAfterDiscount) {
+          <span class="text-lg font-extrabold text-secondary">
+            {{ product().priceAfterDiscount | currency:'EGP' }}
+          </span>
+          <span class="text-sm text-gray-400 line-through">{{ product().price | currency:'EGP' }}</span>
+        } @else {
+          <span class="text-lg font-extrabold text-secondary">{{ product().price | currency:'EGP' }}</span>
+        }
+      </div>
+    </div>
+  </a>
+
+  <div class="px-4 pb-4">
+    <button
+      class="inline-flex min-h-11 cursor-pointer w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
+      type="button"
+      [disabled]="product().quantity <= 0 || addingToCart()"
+      (click)="addToCart()"
+    >
+      @if (addingToCart()) {
+        <i class="fa-solid fa-spinner animate-spin" aria-hidden="true"></i>
+        Adding...
+      } @else {
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        Add to cart
+      }
+    </button>
+  </div>
+</article>

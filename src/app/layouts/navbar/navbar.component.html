@@ -24,14 +24,21 @@
         <i class="fa-regular fa-heart" aria-hidden="true"></i>
         <span>Wishlist</span>
       </a>
-      <a class="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-600 no-underline transition-colors hover:text-primary" routerLink="/cart" routerLinkActive="text-primary" ariaCurrentWhenActive="page" aria-label="Shopping cart">
-        <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+      <a class="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-600 no-underline transition-colors hover:text-primary" routerLink="/cart" routerLinkActive="text-primary" ariaCurrentWhenActive="page" [attr.aria-label]="'Shopping cart, ' + cartItemCount() + ' items'">
+        <span class="relative">
+          <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+          @if (cartItemCount() > 0) {
+            <span class="absolute -right-3 -top-3 grid min-h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[10px] font-extrabold leading-none text-white">
+              {{ cartItemCount() }}
+            </span>
+          }
+        </span>
         <span>Cart</span>
       </a>
       @if(loggedIn()) {
         <button (click)="signOut()" class="inline-flex min-h-10.5 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-4 text-[13px] font-bold text-white no-underline transition hover:-translate-y-px hover:bg-green-700 hover:shadow-md" aria-label="Logout">
           <i class="fa-solid fa-user" aria-hidden="true"></i>
-          <span>Logout</span>
+          <span>Sign out</span>
         </button>
 
       }@else {
@@ -65,7 +72,14 @@
       <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/categories" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Categories</a>
       <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/brands" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Brands</a>
       <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/wishlist" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Wishlist</a>
-      <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/cart" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Cart</a>
+      <a class="flex items-center justify-between rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/cart" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">
+        Cart
+        @if (cartItemCount() > 0) {
+          <span class="grid min-h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[10px] font-extrabold leading-none text-white">
+            {{ cartItemCount() }}
+          </span>
+        }
+      </a>
       <a class="rounded-xl px-3.5 py-3 text-sm font-semibold text-gray-600 no-underline hover:bg-green-50 hover:text-primary" routerLink="/login" routerLinkActive="bg-green-50 text-primary" ariaCurrentWhenActive="page" (click)="closeMenu()">Sign in</a>
     </nav>
   }

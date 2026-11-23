@@ -1,1 +1,115 @@
-<p>brands works!</p>
+<section class="bg-secondary">
+  <div class="mx-auto w-full max-w-[1240px] px-4 py-14 text-center sm:px-6 sm:py-20">
+    <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-green-300">Trusted names, fresh finds</p>
+    <h1 class="m-0 text-4xl font-black text-white sm:text-5xl">
+      Shop by <span class="text-green-300">Brand</span>
+    </h1>
+    <p class="mx-auto mb-0 mt-4 max-w-xl text-sm leading-6 text-white/70 sm:text-base">
+      Explore our collection of brands and discover something you’ll love.
+    </p>
+  </div>
+</section>
+
+<main class="mx-auto w-full max-w-[1240px] px-4 py-12 sm:px-6 sm:py-16">
+  @if (brandsState(); as state) {
+    @if (state.status === 'loading') {
+      <div class="flex min-h-64 items-center justify-center" role="status" aria-live="polite">
+        <i class="fa-solid fa-spinner animate-spin text-3xl text-primary" aria-hidden="true"></i>
+        <span class="sr-only">Loading brands...</span>
+      </div>
+    } @else if (state.status === 'error') {
+      <div class="rounded-2xl border border-red-200 bg-red-50 px-6 py-12 text-center" role="alert">
+        <p class="m-0 font-semibold text-red-700">We couldn't load the brands. Please try again later.</p>
+      </div>
+    } @else if (state.status === 'loaded' && state.brands.length === 0) {
+      <div class="rounded-2xl border border-gray-200 bg-white px-6 py-12 text-center">
+        <p class="m-0 font-semibold text-secondary">No brands are available right now.</p>
+      </div>
+    } @else if (state.status === 'loaded') {
+      <div class="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <p class="mb-1 text-xs font-bold uppercase tracking-[0.16em] text-primary">Our collection</p>
+          <h2 class="m-0 text-2xl font-extrabold text-secondary">All brands</h2>
+        </div>
+        <p class="m-0 text-sm font-medium text-gray-500">{{ state.brands.length }} brands</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        @for (brand of state.brands; track brand._id) {
+          <button
+            class="group flex min-h-60 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            type="button"
+            [attr.aria-label]="'View ' + brand.name + ' brand details'"
+            (click)="viewBrand(brand._id)"
+          >
+            <div class="relative flex h-40 items-center justify-center overflow-hidden bg-gray-50 p-7">
+              <div class="absolute inset-0 bg-gradient-to-br from-green-50 via-transparent to-white opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <img
+                class="relative max-h-full max-w-full object-contain transition duration-300 group-hover:scale-105"
+                [src]="brand.image"
+                [alt]="brand.name"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex flex-1 items-center justify-between gap-3 px-4 py-4">
+              <h3 class="m-0 truncate font-bold text-secondary transition-colors group-hover:text-primary">
+                {{ brand.name }}
+              </h3>
+              <i class="fa-solid fa-arrow-right shrink-0 text-xs text-gray-300 transition group-hover:translate-x-1 group-hover:text-primary" aria-hidden="true"></i>
+            </div>
+          </button>
+        }
+      </div>
+    }
+  }
+</main>
+
+@if (selectedBrandState(); as details) {
+  @if (details.status !== 'closed') {
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center bg-secondary/60 px-4 py-8 backdrop-blur-sm"
+      role="presentation"
+      (click)="closeBrandDetails()"
+      (keydown.escape)="closeBrandDetails()"
+    >
+      <section
+        class="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-7 shadow-2xl sm:p-9"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="brand-details-title"
+        (click)="$event.stopPropagation()"
+      >
+        <button
+          class="absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-gray-200 hover:text-secondary"
+          type="button"
+          aria-label="Close brand details"
+          (click)="closeBrandDetails()"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <h2 id="brand-details-title" class="mb-6 pr-10 text-xl font-extrabold text-secondary">
+          Brand details
+        </h2>
+
+        @if (details.status === 'error') {
+          <p class="rounded-xl bg-red-50 px-4 py-6 text-center font-medium text-red-700" role="alert">
+            Unable to load this brand's details.
+          </p>
+        } @else if (details.status === 'loaded') {
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-5 grid size-44 place-items-center rounded-2xl bg-gray-50 p-7">
+              <img
+                class="max-h-full max-w-full object-contain"
+                [src]="details.brand.image"
+                [alt]="details.brand.name"
+              />
+            </div>
+            <h3 class="m-0 text-2xl font-extrabold text-secondary">{{ details.brand.name }}</h3>
+            <p class="mb-0 mt-2 text-sm text-gray-500">{{ details.brand.slug }}</p>
+          </div>
+        }
+      </section>
+    </div>
+  }
+}

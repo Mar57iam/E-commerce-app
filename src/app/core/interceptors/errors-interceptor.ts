@@ -1,10 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, throwError } from 'rxjs';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toastrService = inject(ToastrService);
+  const platformId = inject(PLATFORM_ID);
 
   return next(req).pipe(
     catchError((error: unknown) => {
@@ -13,10 +15,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           ? getErrorMessage(error)
           : 'An unexpected error occurred. Please try again.';
 
-      toastrService.error(message, 'FreshCart', {
-        progressBar: true,
-        closeButton: true,
-      });
+      if (isPlatformBrowser(platformId)) {
+        toastrService.error(message, 'FreshCart', {
+          progressBar: true,
+          closeButton: true,
+        });
+      }
 
       return throwError(() => error);
     }),
