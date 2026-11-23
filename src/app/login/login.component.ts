@@ -32,6 +32,9 @@ export class LoginComponent {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
           this.router.navigate(['/home']);
+          this.authService.isLoggedIn.set(true);
+          console.log(this.authService.isLoggedIn());
+
         }
       },
     });

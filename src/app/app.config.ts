@@ -8,6 +8,7 @@ import { provideToastr } from 'ngx-toastr';
 import { errorInterceptor } from './core/interceptors/errors-interceptor';
 import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { headerInterceptor } from './core/interceptors/header-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
     ),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch(), withInterceptors([loadingInterceptor, errorInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([loadingInterceptor, errorInterceptor, headerInterceptor])),
     provideToastr({ preventDuplicates: true, timeOut: 5000 }),
     importProvidersFrom(NgxSpinnerModule),
   ],

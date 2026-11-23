@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { APP_ROUTE_PATHS } from './core/constants/app-routes';
+import { authGuard } from './core/auth/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -54,12 +55,15 @@ export const routes: Routes = [
   {
     path: APP_ROUTE_PATHS.cart,
     title: 'Cart | FreshCart',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./cart/cart.component').then((module) => module.CartComponent),
   },
+
   {
     path: APP_ROUTE_PATHS.checkout,
     title: 'Checkout | FreshCart',
+     canActivate: [authGuard],
     loadComponent: () =>
       import('./checkout/checkout.component').then(
         (module) => module.CheckoutComponent,
@@ -68,6 +72,7 @@ export const routes: Routes = [
   {
     path: APP_ROUTE_PATHS.wishlist,
     title: 'Wishlist | FreshCart',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./wishlist/wishlist.component').then(
         (module) => module.WishlistComponent,
@@ -76,6 +81,7 @@ export const routes: Routes = [
   {
     path: APP_ROUTE_PATHS.orders,
     title: 'Orders | FreshCart',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./orders/orders.component').then(
         (module) => module.OrdersComponent,
