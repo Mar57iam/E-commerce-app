@@ -1,1 +1,119 @@
-<p>orders works!</p>
+<main class="min-h-screen bg-[#f7faf8]">
+  <section class="mx-auto w-full max-w-[1080px] px-4 py-8 sm:px-6 sm:py-12">
+    <header class="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <span class="mb-3 inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1.5 text-xs font-extrabold uppercase tracking-wide text-green-700">
+          <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+          Your account
+        </span>
+        <h1 class="m-0 text-3xl font-extrabold tracking-tight text-secondary sm:text-4xl">My Orders</h1>
+        <p class="mb-0 mt-2 text-sm text-gray-500">A little history of all your fresh picks.</p>
+      </div>
+      @if (!isLoading() && !hasError()) {
+        <span class="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-600">
+          {{ orders().length }} orders
+        </span>
+      }
+    </header>
+
+    @if (isLoading()) {
+      <section class="flex min-h-64 flex-col items-center justify-center gap-4 rounded-2xl border border-gray-100 bg-white text-gray-500 shadow-sm" aria-live="polite">
+        <i class="fa-solid fa-spinner animate-spin text-3xl text-primary" aria-hidden="true"></i>
+        <p class="m-0 text-sm font-semibold">Loading your orders...</p>
+      </section>
+    } @else if (hasError()) {
+      <section class="rounded-2xl border border-red-100 bg-white px-6 py-14 text-center shadow-sm" role="alert">
+        <span class="mx-auto mb-4 grid size-14 place-items-center rounded-full bg-red-50 text-danger">
+          <i class="fa-solid fa-triangle-exclamation text-xl" aria-hidden="true"></i>
+        </span>
+        <h2 class="m-0 text-xl font-extrabold text-secondary">We couldn't load your orders</h2>
+        <p class="mb-5 mt-2 text-sm text-gray-500">Please check your connection and try again.</p>
+        <button
+          class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-700"
+          type="button"
+          (click)="loadOrders()"
+        >
+          <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+          Try again
+        </button>
+      </section>
+    } @else if (orders().length === 0) {
+      <section class="rounded-2xl border border-gray-100 bg-white px-6 py-16 text-center shadow-sm">
+        <span class="mx-auto mb-5 grid size-16 place-items-center rounded-full bg-green-50 text-primary">
+          <i class="fa-solid fa-box-open text-2xl" aria-hidden="true"></i>
+        </span>
+        <h2 class="m-0 text-xl font-extrabold text-secondary">No orders yet</h2>
+        <p class="mb-6 mt-2 text-sm text-gray-500">Your orders will show up here when you place one.</p>
+        <a
+          href="/shop"
+          class="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-green-700"
+        >
+          Start shopping
+        </a>
+      </section>
+    } @else {
+      <div class="space-y-5">
+        @for (order of orders(); track order._id) {
+          <article class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <header class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 px-5 py-5 sm:px-7">
+              <div>
+                <p class="m-0 text-xs font-bold uppercase tracking-wide text-gray-400">Order number</p>
+                <h2 class="mb-0 mt-1 max-w-64 truncate text-base font-extrabold text-secondary" [title]="order._id">
+                  #{{ order._id }}
+                </h2>
+                <p class="mb-0 mt-1 text-xs text-gray-500">Placed {{ order.createdAt | date:'mediumDate' }}</p>
+              </div>
+
+              <div class="flex flex-wrap gap-2 text-xs font-bold">
+                <span
+                  class="rounded-full px-3 py-1.5"
+                  [class.bg-green-50]="order.isPaid"
+                  [class.text-green-700]="order.isPaid"
+                  [class.bg-amber-50]="!order.isPaid"
+                  [class.text-amber-700]="!order.isPaid"
+                >
+                  {{ order.isPaid ? 'Paid' : 'Payment pending' }}
+                </span>
+                <span
+                  class="rounded-full px-3 py-1.5"
+                  [class.bg-green-50]="order.isDelivered"
+                  [class.text-green-700]="order.isDelivered"
+                  [class.bg-blue-50]="!order.isDelivered"
+                  [class.text-blue-700]="!order.isDelivered"
+                >
+                  {{ order.isDelivered ? 'Delivered' : 'Processing' }}
+                </span>
+              </div>
+            </header>
+
+            <div class="divide-y divide-gray-100 px-5 sm:px-7">
+              @for (item of order.cartItems; track item._id) {
+                <div class="flex items-center gap-4 py-4">
+                  <div class="grid size-16 shrink-0 place-items-center overflow-hidden rounded-xl bg-[#f1f5f4] p-1.5">
+                    <img class="h-full w-full object-contain" [src]="item.product.imageCover" [alt]="item.product.title" />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="m-0 line-clamp-2 text-sm font-bold text-secondary">{{ item.product.title }}</h3>
+                    <p class="mb-0 mt-1 text-xs text-gray-500">Qty: {{ item.count }}</p>
+                  </div>
+                  <p class="m-0 whitespace-nowrap text-sm font-extrabold text-secondary">
+                    {{ item.price * item.count | currency:'EGP' }}
+                  </p>
+                </div>
+              }
+            </div>
+
+            <footer class="flex flex-wrap items-center justify-between gap-3 bg-gray-50/70 px-5 py-4 sm:px-7">
+              <p class="m-0 text-sm text-gray-500">
+                Paid by <span class="font-bold capitalize text-secondary">{{ order.paymentMethodType }}</span>
+              </p>
+              <p class="m-0 text-base font-extrabold text-secondary">
+                Total: <span class="text-primary">{{ order.totalOrderPrice | currency:'EGP' }}</span>
+              </p>
+            </footer>
+          </article>
+        }
+      </div>
+    }
+  </section>
+</main>

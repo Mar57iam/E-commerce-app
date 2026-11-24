@@ -178,7 +178,7 @@
 
               <a
                 class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-extrabold text-white no-underline shadow-sm transition hover:bg-green-700 hover:shadow-md"
-                routerLink="/checkout"
+                [routerLink]="['/checkout', cart()?._id]"
               >
                 <i class="fa-solid fa-lock text-xs" aria-hidden="true"></i>
                 Secure Checkout

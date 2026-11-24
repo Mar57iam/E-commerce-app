@@ -6,9 +6,9 @@ export const APP_ROUTE_PATHS = {
   productDetails: 'details/:id/:slug',
   productDetailsById: 'details/:id',
   cart: 'cart',
-  checkout: 'checkout',
+  checkout: 'checkout/:id',
   wishlist: 'wishlist',
-  orders: 'orders',
+  orders: 'allorders',
   login: 'login',
   register: 'register',
   forgotPassword: 'forgetpassword',
@@ -25,7 +25,8 @@ export const APP_ROUTE_LINKS = {
       .replace(':id', encodeURIComponent(String(id)))
       .replace(':slug', encodeURIComponent(slug))}`,
   cart: `/${APP_ROUTE_PATHS.cart}`,
-  checkout: `/${APP_ROUTE_PATHS.checkout}`,
+  checkout: (id: string) =>
+    `/${APP_ROUTE_PATHS.checkout.replace(':id', encodeURIComponent(id))}`,
   wishlist: `/${APP_ROUTE_PATHS.wishlist}`,
   orders: `/${APP_ROUTE_PATHS.orders}`,
   login: `/${APP_ROUTE_PATHS.login}`,
