@@ -24,25 +24,25 @@ export class SliderComponent implements AfterViewInit, OnDestroy {
 
   protected readonly slides = [
     {
-      image: '/assets/home-slider-1.d79601a8.png',
-      eyebrow: 'Fresh from the market',
-      title: 'Freshness delivered to your door',
-      description: 'Bring home the best of every season, handpicked for your table.',
-      action: 'Shop fresh',
+      image: '/assets/one.jpg',
+      eyebrow: 'Style for every day',
+      title: 'Find pieces that feel like you',
+      description: 'Explore wardrobe staples, soft layers and standout looks for your everyday style.',
+      action: 'Shop the collection',
     },
     {
-      image: '/assets/istockphoto-2186872037-612x612.jpg',
-      eyebrow: 'Good food, good moments',
-      title: 'Make every basket count',
-      description: 'Discover everyday essentials and little treats for the whole family.',
-      action: 'Explore the shop',
+      image: '/assets/two.jpg',
+      eyebrow: 'Everyday activewear',
+      title: 'Feel good on the move',
+      description: 'Discover comfortable casual essentials that keep up with your day.',
+      action: 'Explore active styles',
     },
     {
-      image: '/assets/young-woman-shopping.webp',
-      eyebrow: 'A better way to shop',
-      title: 'Your favorites, all in one place',
-      description: 'Find fresh picks and pantry staples without leaving home.',
-      action: 'Start shopping',
+      image: '/assets/three.jpg',
+      eyebrow: 'The new collection',
+      title: 'Find your next favorite look',
+      description: 'Discover standout pieces and easy layers for every occasion.',
+      action: 'Shop the collection',
     },
   ];
 

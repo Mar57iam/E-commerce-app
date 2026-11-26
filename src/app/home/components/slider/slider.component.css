@@ -10,7 +10,7 @@
 .hero__swiper {
   position: relative;
   overflow: hidden;
-  height: clamp(360px, 42vw, 520px);
+  height: clamp(360px, 36vw, 460px);
   border-radius: 28px;
   background: #14532d;
   isolation: isolate;
@@ -34,8 +34,10 @@
 }
 
 .hero__image {
+  left: auto;
+  width: 58%;
   object-fit: cover;
-  object-position: center 48%;
+  object-position: center;
 }
 
 .hero__shade {
@@ -179,6 +181,8 @@
   }
 
   .hero__image {
+    left: 0;
+    width: 100%;
     object-position: 58% center;
   }
 

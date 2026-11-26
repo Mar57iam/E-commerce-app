@@ -1,15 +1,15 @@
-<header class="relative z-20 bg-white text-secondary shadow-[0_8px_28px_rgba(16,24,40,0.06)]">
+<header class="fixed inset-x-0 top-0 z-50 bg-white text-secondary shadow-[0_8px_28px_rgba(16,24,40,0.06)]">
   <div class="flex min-h-9 items-center justify-center gap-2 bg-secondary px-4 py-1.5 text-center text-xs tracking-wide text-white">
-    <i class="fa-solid fa-leaf text-green-300" aria-hidden="true"></i>
+    <i class="fa-solid fa-shirt text-green-300" aria-hidden="true"></i>
     <p class="m-0">
-      Fresh picks, happy days.
-      <strong class="font-semibold text-green-200">Goodness delivered to your door.</strong>
+      Style for every day.
+      <strong class="font-semibold text-green-200">Find your next favorite look.</strong>
     </p>
   </div>
 
   <div class="mx-auto flex min-h-[84px] w-full max-w-[1240px] items-center justify-between gap-5 px-6 max-md:min-h-[72px] max-md:px-4">
     <a class="inline-flex shrink-0 items-center text-secondary no-underline" routerLink="/home" (click)="closeMenu()">
-      <img class="h-auto w-[160px] max-md:w-[140px]" src="/assets/fresh-logo.svg" alt="FreshCart" />
+      <img class="h-auto w-[190px] max-md:w-[160px]" src="/assets/fresh-logo.svg" alt="FreshCart" />
     </a>
 
     <nav class="hidden h-full items-center gap-7 md:flex" aria-label="Main navigation">
@@ -26,7 +26,7 @@
       </a>
       <a class="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-600 no-underline transition-colors hover:text-primary" routerLink="/cart" routerLinkActive="text-primary" ariaCurrentWhenActive="page" [attr.aria-label]="'Shopping cart, ' + cartItemCount() + ' items'">
         <span class="relative">
-          <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+          <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
           @if (cartItemCount() > 0) {
             <span class="absolute -right-3 -top-3 grid min-h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[10px] font-extrabold leading-none text-white">
               {{ cartItemCount() }}

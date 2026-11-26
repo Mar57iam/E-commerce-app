@@ -401,6 +401,11 @@
   object-position: 54% center;
 }
 
+.auth-visual__image--low-resolution {
+  object-fit: contain;
+  object-position: center top;
+}
+
 .auth-visual__overlay {
   background: linear-gradient(180deg, rgb(8 43 23 / 8%) 0%, rgb(8 43 23 / 35%) 38%, rgb(8 43 23 / 92%) 100%);
 }
@@ -510,6 +515,11 @@
   }
 
   .auth-visual__image {
+    object-position: center 42%;
+  }
+
+  .auth-visual__image--low-resolution {
+    object-fit: cover;
     object-position: center 42%;
   }
 
